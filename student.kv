@@ -1,0 +1,313 @@
+<Student>:
+    name: "student"
+    MDNavigationLayout:
+
+        MDScreenManager:
+            id: nav_bar
+            MDScreen:
+                MDTopAppBar:
+                    title: "Student Portal"
+                    elevation: 4
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#e7e4c0"
+                    specific_text_color: "#4a4939"
+                    left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+                    right_action_items: [["dots-vertical",lambda x:app.dot_vert(x)]]
+                ScreenManager:
+                    id: screen_manager
+                    Screen:
+                        name:"dashboard"
+                        ScrollView:
+                            size_hint:(1, None)
+                            size: (Window.width, Window.height-65)
+                            GridLayout:
+                                cols:1
+                                size_hint_y:None
+                                padding : "15dp"
+                                spacing : "20dp"
+                                height : "200dp"
+                                MDLabel:
+                                    text: "DASHBOARD"
+                                MDCard:
+                                    size_hint: (.5,None) 
+                                    height: "200dp"
+                                    padding: "5dp"
+                                    elevation: 3
+                                    GridLayout:
+                                        cols:1
+                                        size_hint_y: None
+                                        spacing: "15dp"
+                                        height: "200dp"
+                                        padding: "10dp"
+
+                                        MDLabel:
+                                            id : namevalue
+                                            text: "Name : YISAU Sulaimon"
+                                            
+                                             
+
+                                        MDLabel:
+                                            id : matricnumber
+                                            text: "Matric No. : 125/19/1/0014"
+
+                                        
+                                        MDLabel:
+                                            id : programmevalue
+                                            text: "Programme : Computer Science"
+                                    
+                                        MDLabel:
+                                            id : departmentvalue
+                                            text: "Department : Computer Sciences"
+
+                                        
+                                        MDLabel:
+                                            id : facultyvalue
+                                            text: "Faculty : Natural And Apllied Sciences"
+
+                                 
+
+
+                                 
+                                     
+
+
+                        
+                    Screen:
+                        name:"profile"
+                        MDTextField:
+                            pos_hint:{"center_x": .5, "center_y": .32}
+                            background_color: 0,0,0,0
+                            cursor_color: 0,0,0,1
+                            cursor_width: "2sp"
+                            foreground_color: 120/255, 120/255, 120/255, 1
+                            font_size: "17sp"
+                            multiline: False
+                            size_hint_x : None
+                            width : 300
+                            id: usernamevalue
+                            icon_right: "account"
+
+                        Button:
+                            text: "Login"
+                            background_color: 0,0,0,0
+                            size_hint: .79, .08
+                            pos_hint: {"center_x": .5, "center_y": .15}
+                            size_hint_x : None
+                            width : 300
+                            on_release: app.test3()
+                            canvas.before:
+                                Color:
+                                    rgb: 226/255, 0, 48/255,1
+                                RoundedRectangle:
+                                    size:self.size
+                                    pos: self.pos
+                                    radius:[2]
+                        
+            
+                    
+                    Screen:
+                        name:"courseregistration"
+                        
+
+                    Screen:
+                        name:"carryover"
+                         
+                        
+                    Screen:
+                        name:"registercourses"
+                         
+                             
+                    Screen:
+                        name:"coursehistory1"
+                        ScrollView:
+                            size_hint:(1, None)
+                            size: (Window.width, Window.height-65)
+                            GridLayout:
+                                cols:1
+                                size_hint_y:None
+                                padding : "15dp"
+                                spacing : "20dp"
+                                height : "200dp"
+                                MDLabel:
+                                    text: "DASHBOARD"
+                                MDCard:
+                                    padding: "10dp"
+                                    size_hint: (.5,None)
+                                    height: 317
+                                    elevation: 2
+                                    BoxLayout:
+                                        orientation: "vertical"
+                                        spacing: "25dp"
+                                        size_hint_y: None
+
+                                        MDLabel:
+                                            text:"Academy Session"
+                                        
+                                        MDTextField:
+                                            id: history_session_dropdown
+                                            hint_text: "Session"
+                                            icon_right: "arrow-down-drop-circle-outline"
+                                            on_focus: if self.focus: app.dropdown_session()
+                                        
+                                        MDTextField:
+                                            id: history_semester_dropdown
+                                            hint_text: "Semester"
+                                            icon_right: "arrow-down-drop-circle-outline"
+                                            on_focus: if self.focus: app.dropdown_semester()
+                                        
+                                        MDFlatButton:
+                                            text: "View Registered Courses"
+                                            size_hint: (.79, .8)
+                                            pos_hint: {"center_x": .5, "center_y": .15}
+                                            size_hint_x : None
+                                            width : 300
+                                            on_release: screen_manager.current = "coursehistory2"   
+                                        
+
+                                
+                         
+                         
+
+                    
+                    Screen:
+                        name:"result1"
+                        ScrollView:
+                            size_hint:(1, None)
+                            size: (Window.width, Window.height-65)
+                            GridLayout:
+                                cols:1
+                                size_hint_y:None
+                                padding : "15dp"
+                                spacing : "20dp"
+                                height : "200dp"
+                                MDLabel:
+                                    text: "DASHBOARD"
+                                MDCard:
+                                    padding: "10dp"
+                                    size_hint: (.5,None)
+                                    height: 317
+                                    elevation: 2
+                                    BoxLayout:
+                                        orientation: "vertical"
+                                        spacing: "25dp"
+                                        size_hint_y: None
+
+                                        MDLabel:
+                                            text:"Academy Session"
+                                        
+                                        MDTextField:
+                                            id: result_session_dropdown
+                                            hint_text: "Session"
+                                            icon_right: "arrow-down-drop-circle-outline"
+                                            on_focus: if self.focus: app.dropdown_session()
+                                        
+                                        MDTextField:
+                                            id: result_semester_dropdown
+                                            hint_text: "Semester"
+                                            icon_right: "arrow-down-drop-circle-outline"
+                                            on_focus: if self.focus: app.dropdown_semester()
+                                        
+                                        MDFlatButton:
+                                            text: "View Result"
+                                            size_hint: (.79, .8)
+                                            pos_hint: {"center_x": .5, "center_y": .15}
+                                            size_hint_x : None
+                                            width : 300
+                                            on_release: screen_manager.current = "result2" 
+                    
+                    Screen:
+                        name:"coursehistory2"
+                        MDLabel:
+                            text:"coursehistory2"
+                    
+                    Screen:
+                        name:"result2"
+                        MDLabel:
+                             
+                         
+
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: (0, 16, 16, 0)
+
+            MDNavigationDrawerMenu:
+
+                MDNavigationDrawerHeader:
+                    title: "Header title"
+                    title_color: "#4a4939"
+                    text: "Header text"
+                    spacing: "4dp"
+                    padding: "12dp", 0, 0, "56dp"
+
+                MDNavigationDrawerItem:
+                    icon: "speedometer"
+                    text_right_color: "#4a4939"
+                    text: "Dashboard"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        app.std_dashboard(x)
+                        screen_manager.current = "dashboard"  
+
+                MDNavigationDrawerDivider:
+
+
+                MDNavigationDrawerItem:
+                    icon: "account"
+                    text: "Profile"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        screen_manager.current = "profile"
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerItem:
+                    icon: "book"
+                    text: "Course Registration"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        screen_manager.current = "courseregistration"
+                        app.table()
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerItem:
+                    icon: "book"
+                    text: "CarryOver Courses"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        screen_manager.current = "carryover"
+                
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerItem:
+                    icon: "book"
+                    text: "Registered Courses"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        screen_manager.current = "registercourses"
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerItem:
+                    icon: "book"
+                    text: "Course History"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        screen_manager.current = "coursehistory1"
+                
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerItem:
+                    icon: "chart-bar"
+                    text: "Result"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        app.results()
+                        screen_manager.current = "result2"
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerItem:
+                    icon: "logout"
+                    text: "Logout"

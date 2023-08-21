@@ -1,0 +1,105 @@
+<Login>:
+    name: "login"
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        MDIconButton:
+            icon: "arrow-left"
+            user_font_size: "35sp"
+            pos_hint: {"center_y": .95}
+        Image:
+            source: "logo.png"
+            size_hint: .26, .26
+            pos_hint: {"center_x": .48, "center_y": .8}
+            size_hint_x : None
+            width : 300
+        MDLabel:
+            text:"proceeding with your"
+            font_size: "22sp"
+            color:120/255, 120/255, 120/255, 1
+            pos_hint: {"center_x": .5, "center_y": .65}
+            size_hint_x : None
+            width : 300
+        MDLabel:
+            text:"Login"
+            font_size: "28sp"
+            pos_hint: {"center_x": .5, "center_y": .58}
+            size_hint_x : None
+            width : 300
+        MDFloatLayout:
+            size_hint: None, .08
+            size_hint_x : None
+            width : 300
+            pos_hint: {"center_x": .5, "center_y": .42}
+            MDLabel:
+                text: "Username"
+                font_size: "14sp"
+                pos_hint:{"center_x": .5, "center_y": .9}
+                size_hint_x : None
+                width : 300
+            MDTextField:
+                pos_hint:{"center_x": .5, "center_y": .32}
+                background_color: 0,0,0,0
+                cursor_color: 0,0,0,1
+                cursor_width: "2sp"
+                foreground_color: 120/255, 120/255, 120/255, 1
+                font_size: "17sp"
+                multiline: False
+                size_hint_x : None
+                width : 300
+                id: usernamevalue
+                icon_right: "account"
+            MDFloatLayout:
+                pos_hint: {"center_x": .5, "center_y": 0}
+                size_hint_y: .03
+                md_bg_color: 120/255, 120/255, 120/255, 1
+        MDFloatLayout:
+            size_hint: None, .08
+            size_hint_x : None
+            width : 300
+            pos_hint: {"center_x": .5, "center_y": .28}
+            MDLabel:
+                text: "Password"
+                font_size: "14sp"
+                pos_hint:{"center_x": .5, "center_y": .9}
+                size_hint_x : None
+                width : 300
+            MDTextField:
+                pos_hint:{"center_x": .5, "center_y": .32}
+                background_color: 0,0,0,0
+                cursor_color: 0,0,0,1
+                cursor_width: "2sp"
+                font_size: "17sp"
+                multiline: False
+                password: True
+                icon_right: 'key-variant'
+                id: passwordvalue
+
+            MDFloatLayout:
+                pos_hint: {"center_x": .5, "center_y": 0}
+                size_hint_y: .03
+                md_bg_color: 120/255, 120/255, 120/255, 1
+
+        Button:
+            text: "Login"
+            background_color: 0,0,0,0
+            size_hint: .79, .08
+            pos_hint: {"center_x": .5, "center_y": .15}
+            size_hint_x : None
+            width : 300
+            on_release: root.login_validation()
+            canvas.before:
+                Color:
+                    rgb: 226/255, 0, 48/255,1
+                RoundedRectangle:
+                    size:self.size
+                    pos: self.pos
+                    radius:[2]
+        MDTextButton:
+            text: "Forget Password?"
+            font_size: "13sp"
+            pos_hint: {"center_x": .5, "center_y": .07}
+            halign: "center"
+            color: 120/255, 120/255, 120/255,1
+            size_hint_x : None
+            width : 300
+            

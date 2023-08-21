@@ -1,0 +1,322 @@
+<Lecturer>:
+    name: "lecturer"
+    MDNavigationLayout:
+
+        MDScreenManager:
+            id: nav_bar
+            MDScreen:
+                MDTopAppBar:
+                    title: "Menu"
+                    elevation: 4
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#e7e4c0"
+                    specific_text_color: "#4a4939"
+                    left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+                    right_action_items: [["dots-vertical",lambda x:app.dot_vert(x)]]
+                ScreenManager:
+                    id: screen_manager
+                    Screen:
+                        name:"dashboard"
+                        ScrollView:
+                            size_hint:(1, None)
+                            size: (Window.width, Window.height-65)
+                            GridLayout:
+                                cols:1
+                                size_hint_y:None
+                                padding : "15dp"
+                                spacing : "20dp"
+                                height : "200dp"
+                                MDLabel:
+                                    text: "DASHBOARD"
+                                MDCard:
+                                    size_hint: (.5,None) 
+                                    height: "200dp"
+                                    padding: "5dp"
+                                    elevation: 3
+                                    GridLayout:
+                                        cols:1
+                                        size_hint_y: None
+                                        spacing: "15dp"
+                                        height: "200dp"
+                                        padding: "10dp"
+
+
+                                        MDLabel:
+                                            id : namevalue
+                                             
+
+                                        MDLabel:
+                                            id : matricnumber
+                                        
+                                        
+                                    
+                                        MDLabel:
+                                            id : programmevalue
+                                        
+
+                                        
+                                        MDLabel:
+                                            id : departmentvalue
+
+
+                                        
+                                        MDLabel:
+                                            id : facultyvalue
+        
+                                        
+
+
+                        
+                    Screen:
+                        name:"profile"
+                        
+                        
+                    
+                    Screen:
+                        name:"list of courses taken"
+                        
+
+                    Screen:
+                        name:"list of Students 1"
+                        ScrollView:
+                            size_hint:(1, None)
+                            size: (Window.width, Window.height-65)
+                            GridLayout:
+                                cols:1
+                                size_hint_y:None
+                                padding : "15dp"
+                                spacing : "20dp"
+                                height : "200dp"
+                                MDLabel:
+                                    text: "List of Students"
+                                MDCard:
+                                    padding: "10dp"
+                                    size_hint: (.5,None)
+                                    height: 125
+                                    elevation: 2
+                                    BoxLayout:
+                                        orientation: "vertical"
+                                        spacing: 10
+                                        size_hint_y: None
+                                        
+                                        MDTextField:
+                                            id: result_session_dropdown
+                                            hint_text: "List of courses"
+                                            icon_right: "arrow-down-drop-circle-outline"
+                                            #on_focus: if self.focus: app.dropdown_session()
+                                        
+                                        
+                                        Button:
+                                            text: "Login"
+                                            background_color: 0,0,0,0
+                                            size_hint: .79, .08
+                                            pos_hint: {"center_x": .5, "center_y": .15}
+                                            size_hint_x : None
+                                            width : 300
+                                            on_release: screen_manager.current = "list of Students 2"
+                                            canvas.before:
+                                                Color:
+                                                    rgb: 226/255, 0, 48/255,1
+                                                RoundedRectangle:
+                                                    size:self.size
+                                                    pos: self.pos
+                                                    radius:[2]
+                                             
+                         
+                        
+                    Screen:
+                        name:"add result"
+                        ScrollView:
+                            size_hint:(1, None)
+                            size: (Window.width, Window.height-65)
+                            GridLayout:
+                                cols:1
+                                size_hint_y:None
+                                padding : "15dp"
+                                spacing : "20dp"
+                                height : "200dp"
+                                MDTextField:
+                                    id : coursecodefield
+                                    hint_text: "Course Code"
+                                    mode: "rectangle"
+                                    on_focus: if self.focus: app.coursecode_field()
+                            
+                                MDTextField:
+                                    id : namefield
+                                    hint_text: "Name"
+                                    mode: "rectangle"
+                                    on_focus: if self.focus: app.name_field()
+                                     
+                            
+                                MDTextField:
+                                    id : matricnumberfield
+                                    hint_text: "Matric number"
+                                    mode: "rectangle"
+                                    
+                                     
+                            
+                                MDTextField:
+                                    id : levelcodefield
+                                    hint_text: "Level"
+                                    mode: "rectangle"
+                                     
+                            
+                                MDTextField:
+                                    id : scorefield
+                                    hint_text: "Score"
+                                    mode: "rectangle"
+                                    
+                                     
+
+                                MDTextField:
+                                    id : gradefield
+                                    hint_text: "Grade"
+                                    mode: "rectangle"
+                                    on_focus: if self.focus: app.grade_field()
+                                     
+                                
+                                Button:
+                                    text: "Login"
+                                    background_color:226/255, 0, 48/255,1
+                                    size_hint: .79, .08
+                                    pos_hint: {"center_x": .5, "center_y": .30}
+                                    size_hint_x : None
+                                    width : 322
+                                     
+                                     
+                                     
+                                 
+                        
+                            
+
+                         
+                             
+                    Screen:
+                        name:"list of Students 2"
+                        MDLabel:
+                            text:"list of Students 2"
+                         
+                                        
+
+                                
+                         
+                         
+
+                    
+                    Screen:
+                        name:"student_result1"
+                        ScrollView:
+                            size_hint:(1, None)
+                            size: (Window.width, Window.height-65)
+                            GridLayout:
+                                cols:1
+                                size_hint_y:None
+                                padding : "15dp"
+                                spacing : "20dp"
+                                height : "200dp"
+                                MDLabel:
+                                    text: "List of Students"
+                                MDCard:
+                                    padding: "10dp"
+                                    size_hint: (.5,None)
+                                    height: 117
+                                    elevation: 2
+                                    BoxLayout:
+                                        orientation: "vertical"
+                                        spacing: 10
+                                        size_hint_y: None
+                                        
+                                        MDTextField:
+                                            id: result_session_dropdown
+                                            hint_text: "List of courses"
+                                            icon_right: "arrow-down-drop-circle-outline"
+                                            #on_focus: if self.focus: app.dropdown_session()
+                                        
+                                        
+                                        MDFlatButton:
+                                            text: "View Result"
+                                            size_hint: (.79, .8)
+                                            pos_hint: {"center_x": .5, "center_y": .15}
+                                            size_hint_x : None
+                                            width : 300
+                                            on_release: screen_manager.current = "student_result2"
+                         
+                    
+                    Screen:
+                        name:"student_result2"
+                         
+                    
+                     
+                         
+
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: (0, 16, 16, 0)
+
+            MDNavigationDrawerMenu:
+
+                MDNavigationDrawerHeader:
+                    title: "Header title"
+                    title_color: "#4a4939"
+                    text: "Header text"
+                    spacing: "4dp"
+                    padding: "12dp", 0, 0, "56dp"
+
+                MDNavigationDrawerItem:
+                    icon: "speedometer"
+                    text_right_color: "#4a4939"
+                    text: "Dashboard"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        screen_manager.current = "dashboard"  
+
+                MDNavigationDrawerDivider:
+
+
+                MDNavigationDrawerItem:
+                    icon: "account"
+                    text: "Profile"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        screen_manager.current = "profile"
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerItem:
+                    icon: "book"
+                    text: "List of courses taken"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        screen_manager.current = "list of courses taken"
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerItem:
+                    icon: "book"
+                    text: "List of Students "
+                    on_release:
+                        nav_drawer.set_state("close")
+                        screen_manager.current = "list of Students 1"
+                
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerItem:
+                    icon: "chart-bar"
+                    text: "Add result"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        screen_manager.current = "add result"
+
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerItem:
+                    icon: "chart-bar"
+                    text: "Students Results"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        screen_manager.current = "student_result1"
+                MDNavigationDrawerItem:
+                    icon: "logout"
+                    text: "Logout"
