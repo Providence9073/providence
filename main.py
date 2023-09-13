@@ -24,8 +24,8 @@ cred = credentials.Certificate("service_account.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-"""UserID = db.collection("LoginDetails").list_documents()
-UserIDs = [doc.id for doc in UserID]"""
+UserID = db.collection("LoginDetails").list_documents()
+UserIDs = [doc.id for doc in UserID]
 #print(UserIDs)
 
 kv =  Builder.load_file("login.kv")
@@ -55,43 +55,44 @@ class Login (Screen):
                                    )
             self.dialog.open()
 
-          #elif username not in UserIDs:
-           # self.dialog = MDDialog(title="Notification", 
-            #                      text="User id not found",
-             #                      #size_hint=(0.5,1),
-             #                      buttons=[self.close_btn1]
-              #                     )
-            #self.dialog.open()
+        elif username not in UserIDs:
+            self.dialog = MDDialog(title="Notification", 
+                                  text="User id not found",
+                                   #size_hint=(0.5,1),
+                                   buttons=[self.close_btn1]
+                                   )
+            self.dialog.open()
         
          
-         #else:
-          #  details = db.collection("LoginDetails").document(username).get().to_dict()
-           # if details["password"] != self.ids.passwordvalue.text:
-            #    self.dialog = MDDialog(title="Notification", 
-             #                     text="Pasword not match",
-              #                     #size_hint=(0.5,1),
-               #                    buttons=[self.close_btn1]
-                #                   )
-                #self.dialog.open()
-             ##  if details["password"] == "students1234" or details["password"] == "lecturer1234":
-               #     self.dialog = MDDialog(
-                #    title="Reset Password:",
-                 #   type="custom",
-                  #  content_cls=self.reset_password_page,
-                  #  buttons = [reset_btn],
-                  #  size_hint=(0.9,1))
-                   # self.dialog.open()"""
-
         else:
-            
-            if len(username) == 2 :
-                 
-                         
-                self.manager.current = "student"
-                 
+            details = db.collection("LoginDetails").document(username).get().to_dict()
+            if details["password"] != self.ids.passwordvalue.text:
+                self.dialog = MDDialog(title="Notification", 
+                                  text="Pasword not match",
+                                   #size_hint=(0.5,1),
+                                   buttons=[self.close_btn1]
+                                   )
+                self.dialog.open()
             else:
+                if details["password"] == "students1234" or details["password"] == "lecturer1234":
+                    self.dialog = MDDialog(
+                    title="Reset Password:",
+                    type="custom",
+                    content_cls=self.reset_password_page,
+                    buttons = [reset_btn],
+                    size_hint=(0.9,1))
+                    self.dialog.open()
+
+                else:
+            
+                    if len(username) == 13 :
+                 
                          
-                self.manager.current = "lecturer"
+                        self.manager.current = "student"
+                 
+                    else:
+                         
+                        self.manager.current = "lecturer"
             
 
             
@@ -128,7 +129,7 @@ class Login (Screen):
                  
                 )
             self.warning_dialog.open()
-            db.collection("LoginDetails").document(username).update({"password":self.reset_password_page.ids.new_password.text})
+            #db.collection("LoginDetails").document(username).update({"password":self.reset_password_page.ids.new_password.text})
              
         else:
             
@@ -338,13 +339,19 @@ class Portal (MDApp):
         
     
     def table(self):
-        #courseID = db.collection("CourseRegistration").list_documents()
-        #course = [doc.id for doc in courseID]
-        course_details = ["CSC124","CSC201","CSC201"]
-        course_units = [3,3,1]
-        course_title = ["intro. computer","Software Economics","Software Testing"]
-        lectur = ["Prof. Shuaib","Prof. Super","pro Amubiey"]
-
+        list_unit_reg = []
+        list_lecturer_reg = []
+        list_title_reg = []
+        list_status_reg = []
+        lis_course_reg=  db.collection("CourseRegistration").list_documents()
+        lis_courses_reg = [i.id for i in lis_course_reg ]
+        for c in lis_courses_reg:
+            output = db.collection("CourseRegistration").document(c).get().to_dict()
+            list_unit_reg.append(output["units"])
+            list_lecturer_reg.append(output["lecturer"])
+            list_title_reg.append(output["title"])
+            list_status_reg.append(output["status"])
+        
         self.dialog =  MDDataTable(
             #padding_x = 50,
             size_hint=(0.98,0.99),
@@ -352,17 +359,18 @@ class Portal (MDApp):
             check = True,
             background_color_selected_cell = "e4514f",
             column_data=[
-                
-                ("Course Code", dp(60)),
+                ("S/N.", dp(30)),
+                ("Course Code", dp(30)),
                 ("Course Title", dp(60),),
                 ("Lecturer", dp(30)),
                 ("Course Unit", dp(30)),
+                ("Status", dp(30)),
             ],
             row_data=[
-                #(,"Prof. Super","8"),
-                ( course_details[i],course_title[i],course_units[i],lectur[i]) for i in range(len(course_details))
+                (f'{i + 1}',lis_courses_reg[i],list_title_reg[i],list_lecturer_reg[i],list_unit_reg[i],list_status_reg[i]) for i in range(len(lis_courses_reg))
             ]
             )
+
         self.dialog.bind(on_row_press = self.on_row_press)
         self.dialog.bind(on_check_press = self.on_check_press)
 
@@ -394,12 +402,16 @@ class Portal (MDApp):
 
     
     def results(self):
-        lis_course = ["CSC123","CSC132","CSC134","CSC143","CSC124"]
-        score = [78,78,78,78,38]
-        grade  = ["A","A","A","A","F"]
-        unit = [3,3,3,3,3]
-        #for i in lis_course:
-         #   results_collection = db.collection("Results").document(lis_course[i]).collection("re").document(username).get()
+        list_unit_re = []
+        list_grade_re = []
+        list_score_re = []
+        lis_course_re =  db.collection("Results").list_documents()
+        lis_courses_re = [i.id for i in lis_course_re ]
+        for c in lis_courses_re:
+            output = db.collection("Results").document(c).collection("re").document( username).get().to_dict()
+            list_unit_re.append(output["unit"])
+            list_grade_re.append(output["grade"])
+            list_score_re.append(output["score"])
         
         self.dialogr =  MDDataTable(
             #padding_x = 50,
@@ -408,21 +420,31 @@ class Portal (MDApp):
             column_data=[
                 ("S/N.", dp(30)),
                 ("Course Code", dp(30)),
+                ("Course Unit", dp(30)),
                 ("Score", dp(30),),
                 ("Grade", dp(30)),
-                ("Course Unit", dp(30)),
+                
             ],
             row_data=[
-                (f'{i + 1}',lis_course[i],unit[i],score[i],grade[i]) for i in range(len(lis_course))
+                (f'{i + 1}',lis_courses_re[i],list_unit_re[i],list_score_re[i],list_grade_re[i]) for i in range(len(lis_courses_re))
             ]
             )
-        
-        label=MDLabel(text=f"GPA: 4.00",pos_hint= {"center_x": .8, "center_y": .08})    
+        dic_grade = {"A":5,"B":4,"C":3,"D":2,"E":1,"F":0}
+        total_point =[]
+        list_unit_re_num = []
+        for k in range(len(list_unit_re)):
+            list_unit_re_num.append(int(list_unit_re[k]))
+            total_point.append(int(list_unit_re[k]) * dic_grade[list_grade_re[k]])
+        print(list_unit_re_num)
+        Cgpa = sum(total_point)/sum(list_unit_re_num)
+        print(sum(total_point))
+        print(sum(list_unit_re_num))
+        label=MDLabel(text=f"GPA: {Cgpa}",pos_hint= {"center_x": .8, "center_y": .08})    
         self.l = MDCard(
                     pos_hint= {"center_x": .5, "center_y": .5},
                      
                     )
-        #self.bacl.open()
+        
         
         self.l.add_widget(self.dialogr)
          
