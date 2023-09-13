@@ -106,4 +106,6 @@ print(details["lname"])"""
 #db.collection("Results").document("100lv").collection("Second Semester").document("125_19_1_0014").set(data)
 #print("Hello")
 #db.collection("CourseRegistration").document("2020-2021").collection("100lv").document("second semester").set(data)
-db.collection("Results").document("100lv").collection("Second Semester").document("125_19_1_0014").set(data)
+#db.collection("Results").document("100lv").collection("Second Semester").document("125_19_1_0014").set(data)
+re =db.collection("Results").document("100lv").collection("Second Semester").document("125_19_1_0014").get()
+
